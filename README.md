@@ -45,8 +45,8 @@ Not all databases define and enforce foreign key relationships. Some postgres va
 
 | Suffix | `id` | `_id` | `_key` | `_ref` |
 | ------ | ---- | ----- | ------ | ------ |
-| Matching Column Name | `booksid` | `books_id` | `books_key` | `books_ref` |
-| Matching Column Name | `bookid` | `book_id` | `book_key` | `book_ref` |
+| **Matching Column Name** | `booksid` | `books_id` | `books_key` | `books_ref` |
+| **Matching Depluraled Column Name** | `bookid` | `book_id` | `book_key` | `book_ref` |
 
 
 
