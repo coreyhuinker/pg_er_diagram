@@ -43,20 +43,20 @@ This tool was initially used for investigations into client databases, clients w
 
 Not all databases define and enforce foreign key relationships. Some postgres variants (Redshift, etc) do not support foreign keys at all. For those cases, the tool will seek out column names that are similar to existing table names and a suffix from the list. In addition, if the table ends in an `s`, it will also match values that have removed the final `s`. For instance, the table name `books` will match any of the following column names:
 
-| Suffix: | `id` | `_id` | `_key` | `_ref` |
+| Suffix | `id` | `_id` | `_key` | `_ref` |
 | ------ | ---- | ----- | ------ | ------ |
 | **Matching Column Name** | `booksid` | `books_id` | `books_key` | `books_ref` |
 | **Matching Depluraled Column Name** | `bookid` | `book_id` | `book_key` | `book_ref` |
 
+Such key matches are distinguished from defined key matches via a dashed line instead of a solid line, and the tooltip also identifies the relationship as implied. 
 
-
+This feature is on by default but can turned off via the `PGERD_SHOW_IMPLIED_REFERENCES=false` option.
 
 ### Can Work With Postgres-like Databases
 
 This tool makes extensive use of the PostgreSQL `pg_catalog` tables and the connection library `libpq` which is used by `psql`. As such, any fork of `PostgreSQL` which hasn't modified the internals too greatly should be able to use this tool.
 
-
-## Usage
+## Command Line Usage
 
 ```
 [env=value ...] ./pg_erd.sh [ -h | --help ]
