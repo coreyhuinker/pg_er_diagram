@@ -112,10 +112,19 @@ It also generates a file that looks like this:
 The tooltips can be seen either by opening the SVG file directly in a browser, or via the `Raw` view option in github.
 
 
-## Files
+## Files Required For Operation
 
 | File Name | Description |
 | --- | --- |
 | `pg_erd.sh` | The shell script that is invoked by the user. |
 | `pg_erd.sql` | A SQL script run via `psql` inside `pg_erd.sh`. Users will not directly interact with this file. |
 
+## Other Files
+
+| File Name | Description |
+| --- | --- |
+| `test.sh` | Sample script to generate the output files included in `test_output/`. |
+
+## Installation
+
+By design, there isn't any. It's enough to copy the required files to the same directory on a machine that can connect to the database, and invoke `pg_erd.sh` directly from the command line.
