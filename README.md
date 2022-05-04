@@ -1,6 +1,6 @@
 # PostgreSQL E-R Diagram Geneator
 
-Tool to generate referential integrity matches, either defined or implied.
+Tool to generate an Entity-Relationship Diagram for a postgres-like database via the system catalog.
 
 ## Features
 
@@ -16,18 +16,21 @@ The diagram itself focuses on the relationships between tables, and hiding infor
 
 The file generated is an SVG file that has fairly basic ER-Diagram information presented. However, each table, column and relationship is given a tooltip which can be viewed by hovering over the 
 
-Tooltip information for columns:
+#### Column Tooltips
+
 * name
 * data type
 * whether or not the column is a part of a primary key
 * if the column allows `NULL`s or is `NOT NULL`
 * any description (aka `COMMENT ON COLUMN...`) data provided in the catalog.
 
-Tooltip information for tables:
+#### Table Tooltips
+
 * name
 * any description (aka `COMMENT ON TABLE...`) data provided in the catalog.
 
-Tooltip information for referential integrity relationships:
+#### Referential Integrity Relationship Tooltips
+
 * Whether the relationship is defined in the catalog, or inferred through name matching.
 * name of the constraint
 * any description (aka `COMMENT ON CONSTRAINT...`) data provided in the catalog.
