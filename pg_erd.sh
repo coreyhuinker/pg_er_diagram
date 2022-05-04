@@ -38,7 +38,7 @@ If set to true, then the graph will show dotted lines between columns that are l
 to be foreign keys to other tables based on name matching between that column name and
 the table name. This is often helpful in situations where referential integrity is not
 enforced, either as a design decision or because the postgresql variant does not
-suppport referential integrity (ex. Redshift). The default is true.
+suppport referential integrity. The default is true.
 
 PGERD_SHOW_PARTITIONS
 

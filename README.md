@@ -57,7 +57,7 @@ This feature is on by default but can turned off via the `PGERD_SHOW_IMPLIED_REF
 
 ### Can Work With Postgres-like Databases
 
-This tool makes extensive use of the PostgreSQL `pg_catalog` tables and the connection library `libpq` which is used by `psql`. As such, any fork of `PostgreSQL` which hasn't modified the internals too greatly should be able to use this tool.
+This tool makes extensive use of the PostgreSQL `pg_catalog` tables and the connection library `libpq` which is used by `psql`. In theory, it could work with any recent fork of `PostgreSQL` provided that fork supports recent constructs such as `LATERAL` (introduced in PostgreSQL 9.3), the `concat_ws()` function (introduced in 9.1), the `VALUES()` clause in a CTE (supported since 8.4), etc. Experience has shown that Redshift cannot do any of these things, nor does it currently support array types.
 
 ## Command Line Usage
 
@@ -85,7 +85,7 @@ In addition, it also resepects the following environment variables:
 | `PGERD_SCHEMA_PATTERN` | If provided, is a SQL ILIKE pattern of names of schemas to graph. The default is `%`. |
 | `PGERD_GRAPH_PER_SCHEMA` | If set to `true`, then the program will generate one graph per schema in addition to the all-schema graph. The default is `false`. |
 | `PGERD_KEEP_DOTFILES` | If set to `true`, then the program will not delete the .dot files that were generated for graphviz. The default is `false`. |
-| `PGERD_SHOW_IMPLIED_REFERENCES` | If set to `true`, then the graph will show dotted lines between columns that are likely to be foreign keys to other tables based on name matching between that column name and the table name. This is often helpful in situations where referential integrity is not enforced, either as a design decision or because the postgresql variant does not suppport referential integrity (ex. Redshift). The default is `true`. |
+| `PGERD_SHOW_IMPLIED_REFERENCES` | If set to `true`, then the graph will show dotted lines between columns that are likely to be foreign keys to other tables based on name matching between that column name and the table name. This is often helpful in situations where referential integrity is not enforced, either as a design decision or because the postgresql variant does not suppport referential integrity. The default is `true`. |
 | `PGERD_SHOW_PARTITIONS` | If set to `true`, the graph will include all partitions of a partitioned table. While it is true that members of a partitioned table can have additional columns and referential integrity constraints independent of the parent table, this is rarely the case and therefore the partitions just add clutter to the graph. The default is `false`. |
 
 
