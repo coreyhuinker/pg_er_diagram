@@ -43,7 +43,7 @@ This tool was initially used for investigations into client databases, clients w
 
 Not all databases define and enforce foreign key relationships. Some postgres variants (Redshift, etc) do not support foreign keys at all. For those cases, the tool will seek out column names that are similar to existing table names and a suffix from the list. In addition, if the table ends in an `s`, it will also match values that have removed the final `s`. For instance, the table name `books` will match any of the following column names:
 
-| Suffix | `id` | `_id` | `_key` | `_ref` |
+| Suffix: | `id` | `_id` | `_key` | `_ref` |
 | ------ | ---- | ----- | ------ | ------ |
 | **Matching Column Name** | `booksid` | `books_id` | `books_key` | `books_ref` |
 | **Matching Depluraled Column Name** | `bookid` | `book_id` | `book_key` | `book_ref` |
