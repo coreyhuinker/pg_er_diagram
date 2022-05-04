@@ -50,22 +50,20 @@ which gives the output:
 all schemas...erd.svg
 ```
 
+It also generates a file that looks like this:
 
+![svg image file of ER diagram](test_output/erd.svg)
 
-### Example output
-
-```
-PGSERVICE=my-service-name ./pg_erd.sh
-schema: project1...myproject_project1_erd.svg
-schema: project2...myproject_project2_erd.svg
-schema: public...myproject_public_erd.svg
-all_schemas...myproject_erd.svg
-```
-Will generate output something like this:
 ## Installation Dependencies
+
+This tool is designed to be as lightweight as possible and require as few dependencies as possible.
 
 * `psql`: The command line tool for [postgresql](https://postgresql.org/)
 * `dot`: The command line tool for [GraphViz](https://www.graphviz.org/)
+
+## Other Databases
+
+This tool makes extensive use of the PostgreSQL `pg_catalog` tables and the connection library `libpq` which is used by `psql`. As such, any fork of `PostgreSQL` which hasn't modified the internals too greatly should be able to use this tool.
 
 ## Files
 
