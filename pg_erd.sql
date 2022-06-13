@@ -86,9 +86,13 @@ tabs AS (
             tn.table_name,
             pk.conkey as pk_conkey,
             m.matching_column_names,
-            concat_ws(:'TOOLTIP_CRLF',
+            replace(
+                replace(
+                    concat_ws(:'TOOLTIP_CRLF',
                         format('TABLE: %s', tn.table_name),
-                        format('DESCRIPTION: %s', coalesce(d.description, '(no description available)'))) AS table_tooltip
+                        format('DESCRIPTION: %s', coalesce(d.description, '(no description available)'))),
+                    '"', :'TOOLTIP_DOUBLE_QUOTE'),
+                    '''', :'TOOLTIP_SINGLE_QUOTE') AS table_tooltip
 	FROM pg_class c
     JOIN schemas AS s ON s.oid = c.relnamespace
     -- normalize table names based on selected schema or public if default
@@ -130,7 +134,9 @@ cols AS (
             pk.is_primary_key,
             pk.is_first_pk_column,
             format('%s~%s', a.attrelid::regclass::text, a.attname) as port_name,
-            concat_ws(:'TOOLTIP_CRLF',
+            replace(
+                replace(
+                    concat_ws(:'TOOLTIP_CRLF',
                         format('COLUMN: %s', a.attname),
                         format('TYPE: %s %s',
                                 format_type(a.atttypid, a.atttypmod),
@@ -141,12 +147,12 @@ cols AS (
                                 END),
                         format('DEFAULT: %s',
                                 CASE
-                                    WHEN a.atthasdef THEN replace(replace(pg_get_expr(def.adbin, def.adrelid),
-                                                                            '"', :'TOOLTIP_DOUBLE_QUOTE'),
-                                                                    '''', :'TOOLTIP_SINGLE_QUOTE')
+                                    WHEN a.atthasdef THEN pg_get_expr(def.adbin, def.adrelid)
                                     ELSE '(no default defined)'
                                 END),
-                        format('DESCRIPTION: %s', coalesce(descr.description, '(no description available)'))) AS column_tooltip
+                        format('DESCRIPTION: %s', coalesce(descr.description, '(no description available)'))),
+                    '"', :'TOOLTIP_DOUBLE_QUOTE'),
+                '''', :'TOOLTIP_SINGLE_QUOTE') AS column_tooltip
     FROM tabs AS t
     JOIN pg_attribute AS a ON a.attrelid = t.oid
     LEFT JOIN pg_description AS descr ON descr.objoid = a.attrelid AND descr.objsubid = a.attnum
@@ -164,10 +170,14 @@ defined_foreign_keys AS (
             fk.confrelid,
             fk.conkey,
             a.port_name,
-            concat_ws(:'TOOLTIP_CRLF',
+            replace(
+                replace(
+                    concat_ws(:'TOOLTIP_CRLF',
                         format('%s(%s) %s %I', fk.conrelid::regclass::text, fc.col_list, :'TOOLTIP_ARROW', fk.confrelid::regclass::text),
                         format('FOREIGN KEY NAME: %s', fk.conname),
-                        format('DESCRIPTION: %s', coalesce(descr.description, '(no description available)'))) AS tooltip
+                        format('DESCRIPTION: %s', coalesce(descr.description, '(no description available)'))),
+                    '"', :'TOOLTIP_DOUBLE_QUOTE'),
+                '''', :'TOOLTIP_SINGLE_QUOTE') AS tooltip
     FROM pg_constraint AS fk
     JOIN cols AS a ON a.attrelid = fk.conrelid AND a.attnum = fk.conkey[1]
     CROSS JOIN LATERAL (SELECT COUNT(*),

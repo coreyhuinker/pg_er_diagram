@@ -1,6 +1,17 @@
 #!/bin/bash
 
 #
+#
+#
+PGDATABASE=dvdrental psql <<'EOF'
+
+COMMENT ON COLUMN actor.first_name IS 'Something "with" a lot of "quotes" in it';
+
+
+EOF
+
+
+#
 # Generate the test output file erd.svg
 #
 PGDATABASE=dvdrental PGERD_FILE_PREFIX=test_output/ ./pg_erd.sh
